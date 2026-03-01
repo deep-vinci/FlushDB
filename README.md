@@ -1,6 +1,5 @@
 # A LSM Tree Database - from scratch
 ![](./assets/wal.webp)
-![](https://img.shields.io/badge/work%20in%20progress-orange)
 ## What is LSM or Log Structured Merge tree database?
 A Log-Structured Merge Tree is a write-optimized data structure commonly used in modern databases such as Apache Casandra, LevelDB.
 
