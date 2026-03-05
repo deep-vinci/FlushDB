@@ -78,4 +78,19 @@ public class Utils {
         }
         return maxFileIndex;
     }
+
+    static boolean bloomExistsAndSaysNo(Path bloomPath, String key) {
+        if (Files.notExists(bloomPath)) {
+            return false;
+        }
+
+        try {
+            BloomFilter bloomFilter = BloomFilter.readFromFile(
+                bloomPath
+            );
+            return !bloomFilter.mightContain(key);
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }

@@ -58,6 +58,18 @@ public class MemTableLimit {
                 StandardOpenOption.WRITE
         );
 
+        BloomFilter bloomFilter = new BloomFilter(
+                memTable.size(),
+                0.01d
+        );
+
+        for (var entry : memTable.entrySet()) {
+            bloomFilter.add(entry.getKey());
+        }
+
+        Path bloomFile = dbFolder.resolve("sstable_" + newIndex + ".bloom");
+        bloomFilter.writeToFile(bloomFile);
+
         System.out.println("Flushed MemTable to: " + newFile);
 
         memTable.clear();

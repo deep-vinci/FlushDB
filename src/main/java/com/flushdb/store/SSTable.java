@@ -9,6 +9,11 @@ public class SSTable {
         int maxFileCount = Utils.maxFileIndexCounter(Path.of("./data/db"));
 
         for (int i = maxFileCount; i >= 1; i--) {
+            Path bloomFile = Path.of("./data/db/sstable_" + i + ".bloom");
+            if (Utils.bloomExistsAndSaysNo(bloomFile, key)) {
+                continue;
+            }
+
             Integer val = Utils.searchKeyInSSTable(
                 Path.of("./data/db/sstable_" + i + ".dat"),
                 key
