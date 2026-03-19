@@ -22,3 +22,8 @@ MemTable reaches threshold
      ↓
 Flush to SSTable (immutable on disk)
 ```
+
+## Bloom Sidecar Files
+- Every SSTable flush now also writes `sstable_<n>.bloom`.
+- This is a simple bloom filter (`BitSet`) used only for quick key-presence checks.
+- During `get`, the bloom file is checked first and SSTable file scan is skipped when the key is definitely absent.
